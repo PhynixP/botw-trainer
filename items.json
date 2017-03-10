@@ -575,7 +575,7 @@
     },
     "Armour": {
       "Armor_001_Head": {
-        "Name": "Hylian Hood"
+        "Name": "Hylia-Kapuze (3)"
       },
       "Armor_001_Upper": {
         "Name": "Hylian Tunic"
@@ -584,7 +584,7 @@
         "Name": "Hylian Trousers"
       },
       "Armor_002_Head": {
-        "Name": "Hylian Hood *"
+        "Name": "Hylia-Kapuze +1 (5)"
       },
       "Armor_002_Upper": {
         "Name": "Hylian Tunic *"
@@ -593,7 +593,7 @@
         "Name": "Hylian Trousers *"
       },
       "Armor_003_Head": {
-        "Name": "Hylian Hood **"
+        "Name": "Hylia-Kapuze +2 (8)"
       },
       "Armor_003_Upper": {
         "Name": "Hylian Tunic **"
@@ -602,7 +602,7 @@
         "Name": "Hylian Trousers **"
       },
       "Armor_004_Head": {
-        "Name": "Hylian Hood ***"
+        "Name": "Hylia-Kapuze +3 (12"
       },
       "Armor_004_Upper": {
         "Name": "Hylian Tunic ***"
@@ -1594,31 +1594,31 @@
     },
     "KeyItems": {
       "Obj_DungeonClearSeal": {
-        "Name": "Spirit Orbs"
+        "Name": "Zeichen der Bewährung"
       },
       "Obj_KorokNuts": {
-        "Name": "Korok Seeds"
+        "Name": "Krog-Samen"
       },
       "PlayerStole2": {
-        "Name": "Paraglider"
+        "Name": "Parasegel"
       },
       "Obj_ProofBook": {
-        "Name": "Secret Documents"
+        "Name": "SGeheimunterlagen"
       },
       "Obj_DRStone_Get": {
-        "Name": "Sheikah Slate"
+        "Name": "Shiekah-Stein"
       },
       "Obj_HeroSoul_Zora": {
-        "Name": "Mipha's Grace"
+        "Name": "Miphas Gebet"
       },
       "Obj_HeroSoul_Gerudo": {
-        "Name": "Urbosa's Fury"
+        "Name": "Urbosas Zorn"
       },
       "Obj_HeroSoul_Goron": {
-        "Name": "Daruk's Protection"
+        "Name": "Daruks Schirm"
       },
       "Obj_HeroSoul_Rito": {
-        "Name": "Revali's Gale"
+        "Name": "Revalis Sturm"
       }
     }
   }
