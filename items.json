@@ -278,118 +278,118 @@
         "Name": "Windklinge (40)"
       },
       "Weapon_Spear_001": {
-        "Name": "Traveler's Spear"
+        "Name": "Reiselanze (3)"
       },
       "Weapon_Spear_002": {
-        "Name": "Soldier's Spear"
+        "Name": "Soldatenlanze (7)"
       },
       "Weapon_Spear_003": {
-        "Name": "Knight's Halberd"
+        "Name": "Ritter-Hellebarde (13)"
       },
       "Weapon_Spear_004": {
-        "Name": "Boko Spear"
+        "Name": "Boklanze (2)"
       },
       "Weapon_Spear_005": {
-        "Name": "Spiked Boko Spear"
+        "Name": "Stachel-Boklanze (6)"
       },
       "Weapon_Spear_006": {
-        "Name": "Dragonbone Boko Spear"
+        "Name": "Knochen-Boklanze (12)"
       },
       "Weapon_Spear_007": {
-        "Name": "Lizal Spear"
+        "Name": "Echsallanze (7)"
       },
       "Weapon_Spear_008": {
-        "Name": "Enhanced Lizal Spear"
+        "Name": "Starke Echsallanze (12)"
       },
       "Weapon_Spear_009": {
-        "Name": "Forked Lizal Spear"
+        "Name": " Duo-Echsallanze (18)"
       },
       "Weapon_Spear_010": {
-        "Name": "Moblin Spear"
+        "Name": "Moblanze (4)"
       },
       "Weapon_Spear_011": {
-        "Name": "Spiked Moblin Spear"
+        "Name": "Stachel-Moblanze (9)"
       },
       "Weapon_Spear_012": {
-        "Name": "Dragonbone Moblin Spear"
+        "Name": "Knochen-Moblanze (15)"
       },
       "Weapon_Spear_013": {
-        "Name": "Guardian Spear"
+        "Name": "Wächter-Lanze (10)"
       },
       "Weapon_Spear_014": {
-        "Name": "Guardian Spear+"
+        "Name": "Wächter-Lanze + (15)"
       },
       "Weapon_Spear_015": {
-        "Name": "Guardian Spear++"
+        "Name": "Wächter-Lanze ++ (20)"
       },
       "Weapon_Spear_016": {
-        "Name": "Lynel Spear"
+        "Name": "Leunenlanze (14)"
       },
       "Weapon_Spear_017": {
-        "Name": "Mighty Lynel Spear"
+        "Name": "Bestienlanze (20)"
       },
       "Weapon_Spear_018": {
-        "Name": "Savage Lynel Spear"
+        "Name": "Chimärenlanze (30)"
       },
       "Weapon_Spear_021": {
-        "Name": "Rusty Halberd"
+        "Name": "Verrostete Hellebarde (5)"
       },
       "Weapon_Spear_022": {
-        "Name": "Farmer's Pichfork"
+        "Name": "Heugabel (7)"
       },
       "Weapon_Spear_023": {
-        "Name": "Ancient Spear"
+        "Name": "Antike Lanze (30)"
       },
       "Weapon_Spear_024": {
-        "Name": "Royal Halberd"
+        "Name": "Königs-Hellebarde (26)"
       },
       "Weapon_Spear_025": {
-        "Name": "Forest Dweller's Spear"
+        "Name": "Waldlanze (11)"
       },
       "Weapon_Spear_027": {
-        "Name": "Zora Spear"
+        "Name": "Zora-Lanze (9)"
       },
       "Weapon_Spear_028": {
-        "Name": "Silverscale Spear"
+        "Name": "Schuppenlanze (12)"
       },
       "Weapon_Spear_029": {
-        "Name": "Gerudo Spear"
+        "Name": "Gerudo-Lanze (16)"
       },
       "Weapon_Spear_030": {
-        "Name": "Throwing Spear"
+        "Name": "Wurfspeer (6)"
       },
       "Weapon_Spear_031": {
-        "Name": "Drillshaft"
+        "Name": "Erzbohrer (14)"
       },
       "Weapon_Spear_032": {
-        "Name": "Feathered Spear"
+        "Name": "Elsternlanze (10)"
       },
       "Weapon_Spear_033": {
-        "Name": "Flamespear"
+        "Name": "Feuerlanze (24)"
       },
       "Weapon_Spear_034": {
-        "Name": "Frostspear"
+        "Name": "Eislanze (20)"
       },
       "Weapon_Spear_035": {
-        "Name": "Thunderspear"
+        "Name": "Elektrolanze (22)"
       },
       "Weapon_Spear_036": {
-        "Name": "Wooden Mop"
+        "Name": "Wischmopp (5)"
       },
       "Weapon_Spear_037": {
-        "Name": "Serpentine Spear"
+        "Name": "Sanda-Lanze (12"
       },
       "Weapon_Spear_038": {
-        "Name": "Fishing Harpoon"
+        "Name": "Fischerharpune (8)"
       },
       "Weapon_Spear_047": {
-        "Name": "Royal Guard's Spear"
+        "Name": "Garde-Hellebarde (32)"
       },
       "Weapon_Spear_049": {
-        "Name": "Ceremonial Trident"
+        "Name": "Zeremonienlanze (14)"
       },
       "Weapon_Spear_050": {
-        "Name": "Lightscale Trident"
+        "Name": "Lichtschuppenlanze (22)"
       }
     },
     "Bows": {
