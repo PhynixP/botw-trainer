@@ -394,183 +394,183 @@
     },
     "Bows": {
       "Weapon_Bow_001": {
-        "Name": "Traveler's Bow"
+        "Name": "Reisebogen (5)"
       },
       "Weapon_Bow_002": {
-        "Name": "Soldier's Bow"
+        "Name": "Soldatenbogen (14)"
       },
       "Weapon_Bow_003": {
-        "Name": "Spiked Boko Bow"
+        "Name": "Stachel-Bokbogen (12)"
       },
       "Weapon_Bow_004": {
-        "Name": "Boko Bow"
+        "Name": "Bokbogen (4)"
       },
       "Weapon_Bow_006": {
-        "Name": "Lizal Bow"
+        "Name": "Echsalbogen (14)"
       },
       "Weapon_Bow_009": {
-        "Name": "Lynel Bow"
+        "Name": "Leunenbogen (10) (3 Pfeile)"
       },
       "Weapon_Bow_011": {
-        "Name": "Strengthened Lizal Bow"
+        "Name": "Starker Echsalbogen (25)"
       },
       "Weapon_Bow_013": {
-        "Name": "Forest Dweller's Bow"
+        "Name": "Waldbogen (15) (3 Pfeile)"
       },
       "Weapon_Bow_014": {
-        "Name": "Silver Bow"
+        "Name": "Zora-Bogen (15)"
       },
       "Weapon_Bow_015": {
-        "Name": "Golden Bow"
+        "Name": "Gerudo-Bogen (14)"
       },
       "Weapon_Bow_016": {
-        "Name": "Swallow Bow"
+        "Name": "Schwalbenbogen (9)"
       },
       "Weapon_Bow_017": {
-        "Name": "Falcon Bow"
+        "Name": "Falkenbogen (20)"
       },
       "Weapon_Bow_023": {
-        "Name": "Ancient Bow"
+        "Name": "Antiker Bogen (44)"
       },
       "Weapon_Bow_026": {
-        "Name": "Mighty Lynel Bow"
+        "Name": "Bestienbogen (20) (3 Pfeile)"
       },
       "Weapon_Bow_027": {
-        "Name": "Dragon Bone Boko Bow"
+        "Name": "Knochen-Bokbogen (24)"
       },
       "Weapon_Bow_028": {
-        "Name": "Great Eagle Bow"
+        "Name": "Adlerbogen (28) (3 Pfeile)"
       },
       "Weapon_Bow_029": {
-        "Name": "Phrenic Bow"
+        "Name": "Isshin-Bogen (10)"
       },
       "Weapon_Bow_030": {
-        "Name": "Steel Lizal Bow"
+        "Name": "Stahl-Echsalbogen (36)"
       },
       "Weapon_Bow_032": {
-        "Name": "Savage Lynel Bow"
+        "Name": "Chimärenbogen (32) (3 Pfeile)"
       },
       "Weapon_Bow_033": {
-        "Name": "Royal Guard's Bow"
+        "Name": "Gardebogen (50)"
       },
       "Weapon_Bow_035": {
-        "Name": "Knight's Bow"
+        "Name": "Ritterbogen (26)"
       },
       "Weapon_Bow_036": {
-        "Name": "Royal Bow"
+        "Name": "Königsbogen (38)"
       },
       "Weapon_Bow_038": {
-        "Name": "Wooden Bow"
+        "Name": "Holzbogen (4)"
       },
       "Weapon_Bow_040": {
-        "Name": "Duplex Bow"
+        "Name": "Doppelschussbogen (14) (2 Pfeile)"
       },
       "Weapon_Bow_071": {
-        "Name": "Bow of Light"
+        "Name": "Lichtbogen (100) (unz.)"
       },
       "Weapon_Bow_072": {
-        "name": "Twilight Bow (Twilight Princess)"
+        "name": "Schattenbogen (30) (unz.) (Twilight Princess)"
       }
     },
     "Shields": {
       "Weapon_Shield_001": {
-        "Name": "Wooden Shield"
+        "Name": "Holzschild (2)"
       },
       "Weapon_Shield_002": {
-        "Name": "Soldier's Shield"
+        "Name": "Soldatenschild (16)"
       },
       "Weapon_Shield_003": {
-        "Name": "Knight's Shield"
+        "Name": "Ritterschild (40)"
       },
       "Weapon_Shield_004": {
-        "Name": "Boko Shield"
+        "Name": "Bokschild (3)"
       },
       "Weapon_Shield_005": {
-        "Name": "Spiked Boko Shield"
+        "Name": "Stachel-Bokschild (10)"
       },
       "Weapon_Shield_006": {
-        "Name": "Dragonbone Boko Shield"
+        "Name": "Knochen-Bokschild (25)"
       },
       "Weapon_Shield_007": {
-        "Name": "Lizal Shield"
+        "Name": "Echsalschild (15)"
       },
       "Weapon_Shield_008": {
-        "Name": "Reinforced Lizal Shield"
+        "Name": "Starker Echsalschild (22)"
       },
       "Weapon_Shield_009": {
-        "Name": "Steel Lizal Shield"
+        "Name": "Stahl-Echsalschild (35)"
       },
       "Weapon_Shield_013": {
-        "Name": "Guardian Shield"
+        "Name": "Wächter-Schild (18)"
       },
       "Weapon_Shield_014": {
-        "Name": "Guardian Shield+"
+        "Name": "Wächter-Schild + (30)"
       },
       "Weapon_Shield_015": {
-        "Name": "Guardian Shield++"
+        "Name": "Wächter-Schild ++ (42)"
       },
       "Weapon_Shield_016": {
-        "Name": "Lynel Shield"
+        "Name": "Leunenschild (30)"
       },
       "Weapon_Shield_017": {
-        "Name": "Mighty Lynel Shield"
+        "Name": "Bestienschild (44)"
       },
       "Weapon_Shield_018": {
-        "Name": "Savage Lynel Shield"
+        "Name": "Chimärenschild (62)"
       },
       "Weapon_Shield_021": {
-        "Name": "Rusty Shield"
+        "Name": "Verrosteter Schild (3)"
       },
       "Weapon_Shield_022": {
-        "Name": "Royal Shield"
+        "Name": "Königsschild (55)"
       },
       "Weapon_Shield_023": {
-        "Name": "Forest Dweller's Shield"
+        "Name": "Waldschild (30"
       },
       "Weapon_Shield_025": {
-        "Name": "Silver Shield"
+        "Name": "Zora-Schild (18)"
       },
       "Weapon_Shield_026": {
-        "Name": "Gerudo Shield"
+        "Name": "Gerudo-Schild (20)"
       },
       "Weapon_Shield_030": {
-        "Name": "Hylian Shield"
+        "Name": "Hylia-Schild (90)"
       },
       "Weapon_Shield_031": {
-        "Name": "Hunter's Shield"
+        "Name": "Hasenschild (3)"
       },
       "Weapon_Shield_032": {
-        "Name": "Fisherman's Shield"
+        "Name": "Fischschild (3)"
       },
       "Weapon_Shield_033": {
-        "Name": "Royal Guard's Shield"
+        "Name": "Gardeschild (70)"
       },
       "Weapon_Shield_034": {
-        "Name": "Emblazoned Shield"
+        "Name": "Tierschild (3)"
       },
       "Weapon_Shield_035": {
-        "Name": "Traveler's Shield"
+        "Name": "Reiseschild (4)"
       },
       "Weapon_Shield_036": {
-        "Name": "Radiant Shield"
+        "Name": " Sonnenschild (35)"
       },
       "Weapon_Shield_037": {
-        "Name": "Daybreaker"
+        "Name": "Schatzschild (48)"
       },
       "Weapon_Shield_038": {
-        "Name": "Ancient Shield"
+        "Name": "Antiker Schild (70)"
       },
       "Weapon_Shield_040": {
-        "Name": "Pot Lid"
+        "Name": "Topfdeckel (1)"
       },
       "Weapon_Shield_041": {
-        "Name": "Shield of the Mind's Eye"
+        "Name": "Goshin-Schild (16)"
       },
       "Weapon_Shield_042": {
-        "Name": "Kite Shield"
+        "Name": "Schild der Winde (14)"
       },
       "Weapon_Shield_070": {
-        "Name": "Hero's Shield (Wind Waker)"
+        "Name": "Heldenschild (65) (Wind Waker)"
       }
     },
     "Armour": {
