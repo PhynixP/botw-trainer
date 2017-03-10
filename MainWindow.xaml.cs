@@ -6,6 +6,7 @@
     using System.IO;
     using System.Linq;
     using System.Net;
+    using System.Reflection;
     using System.Text;
     using System.Text.RegularExpressions;
     using System.Threading.Tasks;
@@ -13,8 +14,11 @@
     using System.Windows.Controls;
     using System.Windows.Input;
     using System.Windows.Media;
+    using System.Windows.Resources;
 
     using BotwTrainer.Properties;
+
+    using Newtonsoft.Json.Linq;
 
     /// <summary>
     /// Interaction logic for MainWindow
@@ -36,6 +40,8 @@
         private const uint CodeHandlerEnabled = 0x10014CFC;
 
         private readonly List<Item> items;
+
+        private readonly JToken json;
 
         private readonly string version;
 
@@ -65,9 +71,24 @@
 
             client.Headers.Add("Cache-Control", "no-cache");
             client.DownloadStringCompleted += this.ClientDownloadStringCompleted;
+
             client.DownloadStringAsync(new Uri(string.Format("{0}{1}", client.BaseAddress, "version.txt")));
 
             this.items = new List<Item>();
+
+            try
+            {
+                var file = Assembly.GetExecutingAssembly().GetManifestResourceStream("BotwTrainer.items.json");
+                using (var reader = new StreamReader(file))
+                {
+                    var data = reader.ReadToEnd();
+                    this.json = JObject.Parse(data);
+                }
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("Error loading json");
+            }
         }
 
         private enum Cheat
@@ -80,7 +101,8 @@
             WeaponInv = 5,
             BowInv = 6,
             ShieldInv = 7,
-            Speed = 8
+            Speed = 8,
+            Mon = 9
         }
 
         private bool LoadDataAsync()
@@ -129,11 +151,12 @@
                         {
                             break;
                         }
+
                         builder.Append((char)data);
                     }
 
-                    var name = builder.ToString();
-
+                    var id = builder.ToString();
+                    
                     var item = new Item
                                    {
                                        BaseAddress = currentItemAddress,
@@ -142,7 +165,7 @@
                                        Value = value,
                                        Equipped = equipped,
                                        NameStart = nameStart,
-                                       Name = name,
+                                       Id = id,
                                        Modifier1Value = this.ReadStream(stream, 92).ToString("x8").ToUpper(),
                                        Modifier2Value = this.ReadStream(stream, 96).ToString("x8").ToUpper(),
                                        Modifier3Value = this.ReadStream(stream, 100).ToString("x8").ToUpper(),
@@ -150,27 +173,11 @@
                                        Modifier5Value = this.ReadStream(stream, 108).ToString("x8").ToUpper()
                                    };
 
-                    this.items.Add(item);
-
-                    /*
-                    var item = new Item
-                    {
-                        BaseAddress = currentItem,
-                        Page = Convert.ToInt32(page),
-                        Unknown = Convert.ToInt32(this.tcpGecko.peek(currentItem + 0x4)),
-                        Value = this.tcpGecko.peek(currentItem + 0x8),
-                        Equipped = this.tcpGecko.peek(currentItem + 0xC),
-                        NameStart = this.tcpGecko.peek(currentItem + 0x1C),
-                        Name = this.ReadString(currentItem + 0x1C),
-                        Modifier1Value = this.tcpGecko.peek(currentItem + 0x5C).ToString("x8").ToUpper(),
-                        Modifier2Value = this.tcpGecko.peek(currentItem + 0x60).ToString("x8").ToUpper(),
-                        Modifier3Value = this.tcpGecko.peek(currentItem + 0x64).ToString("x8").ToUpper(),
-                        Modifier4Value = this.tcpGecko.peek(currentItem + 0x68).ToString("x8").ToUpper(),
-                        Modifier5Value = this.tcpGecko.peek(currentItem + 0x6C).ToString("x8").ToUpper()
-                    };
+                    // look for name in json
+                    var name = this.GetNameFromId(id, item.PageName);
+                    item.Name = name;
 
                     this.items.Add(item);
-                    */
 
                     var currentPercent = (100m / 418m) * x;
                     Dispatcher.Invoke(
@@ -188,8 +195,9 @@
 
                 return true;
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                //throw new Exception(ex.Message);
                 Dispatcher.Invoke(() => this.ToggleControls("LoadError"));
                 return false;
             }
@@ -201,6 +209,7 @@
 
             this.items.Clear();
 
+            // talk to wii u and get mem dump of data
             var result = await Task.Run(() => this.LoadDataAsync());
 
             if (result)
@@ -217,11 +226,12 @@
                 this.LoadTab(this.KeyItems, 9);
 
                 // Code Tab Values
-                CurrentStamina.Text = this.tcpGecko.peek(0x42439598).ToString("X");
-                CurrentSpeed.Text = this.tcpGecko.peek(0x439BF514).ToString("X");
-                CurrentHealth.Text = this.tcpGecko.peek(0x439B6558).ToString(CultureInfo.InvariantCulture);
+                CurrentStamina.Text = this.tcpGecko.peek(0x42439598).ToString("x8").ToUpper();
+                var healthPointer = this.tcpGecko.peek(0x4225B4B0);
+                CurrentHealth.Text = this.tcpGecko.peek(healthPointer + 0x430).ToString(CultureInfo.InvariantCulture);
                 CurrentRupees.Text = this.tcpGecko.peek(0x4010AA0C).ToString(CultureInfo.InvariantCulture);
-
+                CurrentMon.Text = this.tcpGecko.peek(0x4010B14C).ToString(CultureInfo.InvariantCulture);
+                CbSpeed.SelectedValue = this.tcpGecko.peek(0x439BF514).ToString("X").ToUpper();
                 CurrentWeaponSlots.Text = this.tcpGecko.peek(0x3FCFB498).ToString(CultureInfo.InvariantCulture);
                 CurrentBowSlots.Text = this.tcpGecko.peek(0x3FD4BB50).ToString(CultureInfo.InvariantCulture);
                 CurrentShieldSlots.Text = this.tcpGecko.peek(0x3FCC0B40).ToString(CultureInfo.InvariantCulture);
@@ -242,17 +252,20 @@
 
                 if (this.connected)
                 {
+                    // Saved settings stuff
                     var shown = Settings.Default.Warning;
 
                     if (shown < 3)
                     {
                         Settings.Default.Warning++;
 
-                        MessageBox.Show("WARNING: Item names are now editable. Using bad data may mess up your game so use with care.");
+                        //MessageBox.Show("WARNING: Item names are now editable. Using bad data may mess up your game so use with care.");
                     }
 
                     Settings.Default.IpAddress = IpAddress.Text;
                     Settings.Default.Save();
+
+                    Controller.SelectedValue = Settings.Default.Controller;
 
                     this.ToggleControls("Connected");
                 }
@@ -372,7 +385,7 @@
                     }
                 }
 
-                MessageBox.Show("Data sent. Please save/load the game if you changed the 'Item Value'");
+                //MessageBox.Show("Data sent. Please save/load the game if you changed the 'Item Value'");
             }
 
             // Here we can poke the values as it has and immediate effect
@@ -418,7 +431,6 @@
                 if (foundTextBox != null)
                 {
                     var newName = Encoding.Default.GetBytes(foundTextBox.Text);
-                    var length = newName.Length;
 
                     //clear current name
                     this.tcpGecko.poke32(item.NameStart, 0x0);
@@ -471,6 +483,11 @@
                     selected.Add(Cheat.Rupees);
                 }
 
+                if (Mon.IsChecked == true)
+                {
+                    selected.Add(Cheat.Mon);
+                }
+
                 if (Run.IsChecked == true)
                 {
                     selected.Add(Cheat.Run);
@@ -502,6 +519,9 @@
                 }
 
                 this.SetCheats(selected);
+
+                Settings.Default.Controller = Controller.SelectedValue.ToString();
+                Settings.Default.Save();
             }
 
             this.DebugData();
@@ -518,7 +538,7 @@
         {
             var scroll = new ScrollViewer { Name = "ScrollContent", Margin = new Thickness(10), VerticalAlignment = VerticalAlignment.Top };
 
-            var holder = new WrapPanel { Margin = new Thickness(0), VerticalAlignment = VerticalAlignment.Top};
+            var holder = new WrapPanel { Margin = new Thickness(0), VerticalAlignment = VerticalAlignment.Top };
 
             // setup grid
             var grid = this.GenerateTabGrid(tab.Name);
@@ -535,21 +555,26 @@
             {
                 grid.RowDefinitions.Add(new RowDefinition());
 
-                var value = item.Value;
-                if (value > int.MaxValue)
-                {
-                    value = 0;
-                }
-
                 // Name
                 var name = new TextBox
                 {
                     Text = item.Name,
-                    ToolTip = item.NameStart.ToString("x8").ToUpper(), 
-                    Margin = new Thickness(0,0,0,0),
+                    Margin = new Thickness(0),
+                    BorderThickness = new Thickness(0),
                     Height = 22,
-                    Width = 230,
-                    IsReadOnly = false,
+                    Width = 180,
+                    IsReadOnly = true
+                };
+
+                // Id
+                var id = new TextBox
+                {
+                    Text = item.Id, 
+                    ToolTip = item.NameStartHex,
+                    Margin = new Thickness(0), 
+                    Height = 22, 
+                    Width = 130,
+                    IsReadOnly = false, 
                     Name = "Name_" + item.NameStartHex
                 };
 
@@ -558,10 +583,12 @@
                 {
                     this.UnregisterName("Name_" + item.NameStartHex);
                 }
-                this.RegisterName("Name_" + item.NameStartHex, name);
+
+                this.RegisterName("Name_" + item.NameStartHex, id);
 
                 if (item.EquippedBool)
                 {
+                    id.Foreground = Brushes.Red;
                     name.Foreground = Brushes.Red;
                 }
 
@@ -569,31 +596,55 @@
                 Grid.SetColumn(name, 0);
                 grid.Children.Add(name);
 
+                Grid.SetRow(id, x);
+                Grid.SetColumn(id, 1);
+                grid.Children.Add(id);
+
                 // Value
-                var val = this.GenerateGridTextBox(value.ToString(), item.BaseAddressHex, x, 1);
+                var value = item.Value;
+                if (value > int.MaxValue)
+                {
+                    value = 0;
+                }
+
+                var val = this.GenerateGridTextBox(value.ToString(), item.BaseAddressHex, x, 2, 75);
                 val.PreviewTextInput += this.NumberValidationTextBox;
                 grid.Children.Add(val);
 
                 // Mod1
-                var mtb1 = this.GenerateGridTextBox(item.Modifier1Value, item.Modifier1Address, x, 2);
+                var mtb1 = this.GenerateGridTextBox(item.Modifier1Value, item.Modifier1Address, x, 3, 65);
                 grid.Children.Add(mtb1);
 
                 // Mod2
-                var mtb2 = this.GenerateGridTextBox(item.Modifier2Value, item.Modifier2Address, x, 3);
+                var mtb2 = this.GenerateGridTextBox(item.Modifier2Value, item.Modifier2Address, x, 4, 65);
                 grid.Children.Add(mtb2);
 
-                // Mod3
-                var mtb3 = this.GenerateGridTextBox(item.Modifier3Value, item.Modifier3Address, x, 4);
+                // Mod3s
+                var mtb3 = this.GenerateGridTextBox(item.Modifier3Value, item.Modifier3Address, x, 5, 65);
                 grid.Children.Add(mtb3);
 
                 // Mod4
-                var mtb4 = this.GenerateGridTextBox(item.Modifier4Value, item.Modifier4Address, x, 5);
+                var mtb4 = this.GenerateGridTextBox(item.Modifier4Value, item.Modifier4Address, x, 6, 65);
                 grid.Children.Add(mtb4);
 
                 // Mod5
-                var mtb5 = this.GenerateGridTextBox(item.Modifier5Value, item.Modifier5Address, x, 6);
+                var mtb5 = this.GenerateGridTextBox(item.Modifier5Value, item.Modifier5Address, x, 7, 65);
                 grid.Children.Add(mtb5);
 
+                // dropdown
+                /*
+                var test = new ComboBox
+                               {
+                                   Name = "CbName_" + item.NameStartHex, 
+                                   ItemsSource = this.weaponList, 
+                                   Width = 150, 
+                                   Height = 25, 
+                                   SelectedValue = item.Name
+                               };
+                Grid.SetRow(test, x);
+                Grid.SetColumn(test, 7);
+                grid.Children.Add(test);
+                */
                 x++;
             }
 
@@ -603,10 +654,11 @@
             {
                 Background = Brushes.Transparent,
                 BorderThickness = new Thickness(0),
-                Margin = new Thickness(10, 10, 0, 0),
+                Margin = new Thickness(20, 10, 0, 0),
                 IsReadOnly = true,
                 TextWrapping = TextWrapping.Wrap,
-                Text = "Modifiers aren't used for all Types/Items. See help for more info."
+                Text = "Items move around. What you see below may not be what is in memory. Refresh to get the latest data before you try to save anything.",
+                Foreground = Brushes.Red
             });
 
             holder.Children.Add(grid);
@@ -629,15 +681,21 @@
             var health = this.tcpGecko.peek(0x439B6558);
             this.HealthData.Content = string.Format("0x439B6558 = {0}", health);
 
+            var rupee1 = this.tcpGecko.peek(0x3FC92D10);
+            var rupee2 = this.tcpGecko.peek(0x4010AA0C);
+            this.RupeeData.Content = string.Format("[0x3FC92D10 = {0}, 0x4010AA0C = {1}]", rupee1, rupee2);
+
+            var mon1 = this.tcpGecko.peek(0x3FD41158);
+            var mon2 = this.tcpGecko.peek(0x4010B14C);
+            this.MonData.Content = string.Format("[0x3FD41158 = {0}, 0x4010B14C = {1}]", mon1, mon2);
+
             var run = this.tcpGecko.peek(0x43A88CC4).ToString("X");
-            this.RunData.Content = string.Format("0x43A88CC4 = {0}", run);
+            this.RunData.Content = string.Format("0x43A88CC4 = {0} (Redundant really due to speed code)", run);
 
             var speed = this.tcpGecko.peek(0x439BF514).ToString("X");
             this.SpeedData.Content = string.Format("0x439BF514 = {0}", speed);
 
-            var rupee1 = this.tcpGecko.peek(0x3FC92D10);
-            var rupee2 = this.tcpGecko.peek(0x4010AA0C);
-            this.RupeeData.Content = string.Format("[0x3FC92D10 = {0}, 0x4010AA0C = {1}]", rupee1, rupee2);
+            this.MoonJumpData.Content = "Hold X";
 
             var weapon1 = this.tcpGecko.peek(0x3FCFB498);
             var weapon2 = this.tcpGecko.peek(0x4010B34C);
@@ -689,10 +747,14 @@
             {
                 var value = Convert.ToUInt32(CurrentHealth.Text);
 
-                codes.Add(0x00020000);
-                codes.Add(0x439B6558);
+                codes.Add(0x30000000);
+                codes.Add(0x4225B4B0);
+                codes.Add(0x43000000);
+                codes.Add(0x46000000);
+                codes.Add(0x00120430);
                 codes.Add(value);
-                codes.Add(0x00000000);
+                codes.Add(0xD0000000);
+                codes.Add(0xDEADCAFE);
             }
 
             if (cheats.Contains(Cheat.Run))
@@ -705,12 +767,20 @@
 
             if (cheats.Contains(Cheat.Speed))
             {
-                var value = uint.Parse(CurrentSpeed.Text, NumberStyles.HexNumber);
+                var value = uint.Parse(CbSpeed.SelectedValue.ToString(), NumberStyles.HexNumber);
+
+                //codes.Add(0x09020000);
+                //codes.Add(0x102F48A8);
+                //codes.Add(0x00004000);
+                //codes.Add(0x00000000);
 
                 codes.Add(0x00020000);
                 codes.Add(0x439BF514);
                 codes.Add(value);
                 codes.Add(0x00000000);
+
+                //codes.Add(0xD0000000);
+                //codes.Add(0xDEADCAFE);
             }
 
             if (cheats.Contains(Cheat.Rupees))
@@ -728,21 +798,39 @@
                 codes.Add(0x00000000);
             }
 
+            if (cheats.Contains(Cheat.Mon))
+            {
+                var value = Convert.ToUInt32(CurrentMon.Text);
+
+                codes.Add(0x00020000);
+                codes.Add(0x3FD41158);
+                codes.Add(value);
+                codes.Add(0x00000000);
+
+                codes.Add(0x00020000);
+                codes.Add(0x4010B14C);
+                codes.Add(value);
+                codes.Add(0x00000000);
+            }
+
             if (cheats.Contains(Cheat.MoonJump))
             {
                 uint activator;
-                if (this.Controller.SelectedIndex == 0)
+                uint button;
+                if (this.Controller.SelectedValue.ToString() == "Pro")
                 {
                     activator = 0x112671AB;
+                    button = 0x00000008;
                 }
                 else
                 {
                     activator = 0x102F48AA;
+                    button = 0x00000020;
                 }
 
                 codes.Add(0x09000000);
                 codes.Add(activator);
-                codes.Add(0x00000020);
+                codes.Add(button);
                 codes.Add(0x00000000);
                 codes.Add(0x00020000);
                 codes.Add(0x439BF528);
@@ -753,7 +841,7 @@
 
                 codes.Add(0x06000000);
                 codes.Add(activator);
-                codes.Add(0x00000020);
+                codes.Add(button);
                 codes.Add(0x00000000);
                 codes.Add(0x00020000);
                 codes.Add(0x439BF528);
@@ -872,7 +960,7 @@
 
             if (state == "LoadError")
             {
-                
+                MessageBox.Show("Something went wrong");
             }
         }
 
@@ -911,7 +999,7 @@
             }
             catch (Exception)
             {
-                MessageBox.Show("Error checking for new version");
+                MessageBox.Show("Error checkign for new  version.");
             }
         }
 
@@ -968,18 +1056,18 @@
             return data;
         }
 
-        private TextBox GenerateGridTextBox(string value, string field, int x, int col)
+        private TextBox GenerateGridTextBox(string value, string field, int x, int col, int width = 75)
         {
             var tb = new TextBox
             {
-                Text = value,
+                Text = value, 
                 ToolTip = field,
-                Width = 70,
-                Height = 22,
-                Margin = new Thickness(10,0,10,0),
-                Name = "Item_" + field,
-                IsEnabled = true,
-                CharacterCasing = CharacterCasing.Upper,
+                Width = width, 
+                Height = 22, 
+                Margin = new Thickness(10, 0, 10, 0), 
+                Name = "Item_" + field, 
+                IsEnabled = true, 
+                CharacterCasing = CharacterCasing.Upper, 
                 MaxLength = 8
             };
 
@@ -1007,22 +1095,34 @@
                 VerticalAlignment = VerticalAlignment.Top
             };
 
-            grid.ColumnDefinitions.Add(new ColumnDefinition{ Width = new GridLength(250) });
-            grid.ColumnDefinitions.Add(new ColumnDefinition());
+            grid.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(200) }); // Name
+            grid.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(150) }); // Id
+            grid.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(110) });
 
             grid.RowDefinitions.Add(new RowDefinition());
 
             // Headers
-            var itemHeader = new TextBlock
+            var nameHeader = new TextBlock
             {
                 Text = "Item Name",
                 FontSize = 14,
                 FontWeight = FontWeights.Bold,
-                Width = 230
+                Width = 180
             };
-            Grid.SetRow(itemHeader, 0);
-            Grid.SetColumn(itemHeader, 0);
-            grid.Children.Add(itemHeader);
+            Grid.SetRow(nameHeader, 0);
+            Grid.SetColumn(nameHeader, 0);
+            grid.Children.Add(nameHeader);
+
+            var idHeader = new TextBlock
+            {
+                Text = "Item Id",
+                FontSize = 14,
+                FontWeight = FontWeights.Bold,
+                Width = 150
+            };
+            Grid.SetRow(idHeader, 0);
+            Grid.SetColumn(idHeader, 1);
+            grid.Children.Add(idHeader);
 
             var valueHeader = new TextBlock
             {
@@ -1032,7 +1132,7 @@
                 HorizontalAlignment = HorizontalAlignment.Center
             };
             Grid.SetRow(valueHeader, 0);
-            Grid.SetColumn(valueHeader, 1);
+            Grid.SetColumn(valueHeader, 2);
             grid.Children.Add(valueHeader);
 
             grid.ColumnDefinitions.Add(new ColumnDefinition());
@@ -1041,13 +1141,18 @@
             grid.ColumnDefinitions.Add(new ColumnDefinition());
             grid.ColumnDefinitions.Add(new ColumnDefinition());
 
-            var headerNames = new[] { "Modifier 1", "Modifier 2", "Modifier 3", "Modifier 4", "Modifier 5" };
+            var headerNames = new[] { "Mod. 1", "Mod. 2", "Mod. 3", "Mod. 4", "Mod. 5" };
 
             for (int y = 0; y < 5; y++)
             {
                 if (tab == "Food")
                 {
                     headerNames = new[] { "Hearts Restored", "Duration", "Mod Value?", "Mod Type", "Mod Level" };
+                }
+
+                if (tab == "Weapons" || tab == "Bows" || tab == "Shields")
+                {
+                    headerNames = new[] { "Mod. Amount", "N/A", " Mod. Type", "N/A", "N/A" };
                 }
 
                 var header = new TextBlock
@@ -1058,11 +1163,24 @@
                     HorizontalAlignment = HorizontalAlignment.Center
                 };
                 Grid.SetRow(header, 0);
-                Grid.SetColumn(header, y + 2);
+                Grid.SetColumn(header, y + 3);
                 grid.Children.Add(header);
             }
 
             return grid;
+        }
+
+        private string GetNameFromId(string id, string pagename)
+        {
+            var name = "Unknown";
+            var path = string.Format("Items.{0}.{1}.Name", pagename.Replace(" ", string.Empty), id);
+            var obj = this.json.SelectToken(path);
+            if (obj != null)
+            {
+                name = obj.ToString();
+            }
+
+            return name;
         }
     }
 }

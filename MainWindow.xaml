@@ -19,11 +19,11 @@
 
             <Button x:Name="Connect" Content="Connect" HorizontalAlignment="Left" VerticalAlignment="Top" Width="75" Click="ConnectClick" Canvas.Left="140" Canvas.Top="13" />
 
-            <Button x:Name="Disconnect" Content="Disconnect" HorizontalAlignment="Left" VerticalAlignment="Top" Width="90" Click="DisconnectClick" IsEnabled="False" Canvas.Left="140" Canvas.Top="13" Visibility="Hidden"/>
+            <Button x:Name="Disconnect" Content="Disconnect" HorizontalAlignment="Left" VerticalAlignment="Top" Width="75" Click="DisconnectClick" IsEnabled="False" Canvas.Left="140" Canvas.Top="13" Visibility="Hidden"/>
 
-            <Button x:Name="Load" Content="Load Data" HorizontalAlignment="Left" Margin="0,0,0,0" VerticalAlignment="Top" Width="75" Click="LoadClick" Canvas.Left="250" Canvas.Top="13" IsEnabled="False" />
+            <Button x:Name="Load" Content="Load Data" HorizontalAlignment="Left" Margin="0,0,0,0" VerticalAlignment="Top" Width="75" Click="LoadClick" Canvas.Left="240" Canvas.Top="13" IsEnabled="False" />
 
-            <Label x:Name="Info" Content="As items move around it is best to refresh to get the latest data before you try to save anything." Canvas.Right="10" Canvas.Top="14" HorizontalContentAlignment="Right"/>
+            <Label x:Name="Info" Content="Only Save/Load the game if you change Weapons/Bows/Shields/Armour." Canvas.Right="10" Canvas.Top="9" HorizontalContentAlignment="Right" Foreground="Red" FontSize="14" />
         </Canvas>
 
         <TabControl x:Name="TabControl" HorizontalAlignment="Left" Height="530" VerticalAlignment="Top" IsEnabled="False" Grid.Row="1" SelectedIndex="0" Width="980" SelectionChanged="TabControlSelectionChanged">
@@ -46,8 +46,13 @@
 
             <TabItem Header="Codes" x:Name="Codes" Margin="0,0,0,0" Background="PaleVioletRed">
                 <Canvas>
-                    <Label Content="To enable these codes check the box and click save." Height="30" Margin="0" Canvas.Left="50" Canvas.Top="24" FontSize="14" Width="642"/>
-                    <Label Content="Current address/values printed to the right. These are for EUR so may not work on US." Height="30" Margin="0" Canvas.Left="50" Canvas.Top="54"/>
+                    <Label Content="To enable these codes check the box and click save. Current address/values printed to the right." Height="30" Margin="0" Canvas.Left="50" Canvas.Top="24" FontSize="14" Width="642"/>
+
+                    <Label Content="Controller Type" Height="26" Margin="0" Canvas.Left="50" Canvas.Top="64"/>
+                    <ComboBox x:Name="Controller" Canvas.Left="200" Canvas.Top="67" Width="80" SelectedValuePath="Content">
+                        <ComboBoxItem Name="Pro" Content="Pro"></ComboBoxItem>
+                        <ComboBoxItem Name="Gamepad" Content="Gamepad"></ComboBoxItem>
+                    </ComboBox>
 
                     <Label Content="Stamina" Height="26" Margin="0" Canvas.Left="50" Canvas.Top="94"/>
                     <CheckBox x:Name="Stamina" Margin="0" Canvas.Left="160" Canvas.Top="100"/>
@@ -64,36 +69,47 @@
                     <TextBox x:Name="CurrentRupees" Height="25" Width="90" Margin="0" Canvas.Left="200" Canvas.Top="155" PreviewTextInput="NumberValidationTextBox"></TextBox>
                     <Label x:Name="RupeeData" Content="RupeeData" Height="25" Margin="0" Canvas.Left="315" Canvas.Top="155"/>
 
-                    <Label Content="Always Run" Height="26" Margin="0" Canvas.Left="50" Canvas.Top="184"></Label>
-                    <CheckBox x:Name="Run" Margin="0" Canvas.Left="160" Canvas.Top="190" />
-                    <Label x:Name="RunData" Content="RunData" Height="25" Margin="0" Canvas.Left="280" Canvas.Top="144" Visibility="Hidden"/>
+                    <Label Content="Mon" Height="26" Margin="0" Canvas.Left="50" Canvas.Top="184"/>
+                    <CheckBox x:Name="Mon" Margin="0" Canvas.Left="160" Canvas.Top="190" />
+                    <TextBox x:Name="CurrentMon" Height="25" Width="90" Margin="0" Canvas.Left="200" Canvas.Top="185" PreviewTextInput="NumberValidationTextBox"/>
+                    <Label x:Name="MonData" Content="MonData" Height="25" Margin="0" Canvas.Left="315" Canvas.Top="185"/>
 
-                    <Label Content="Speed" Height="26" Margin="0" Canvas.Left="50" Canvas.Top="214"/>
-                    <CheckBox x:Name="Speed" Margin="0" Canvas.Left="160" Canvas.Top="220"/>
-                    <TextBox x:Name="CurrentSpeed" Height="25" Width="90" Margin="0" Canvas.Left="200" Canvas.Top="214" CharacterCasing="Upper" MaxLength="8"/>
-                    <Label x:Name="SpeedData" Content="SpeedData" Height="25" Margin="0" Canvas.Left="315" Canvas.Top="214"/>
+                    <Label Content="Always Run" Height="26" Margin="0" Canvas.Left="50" Canvas.Top="214"></Label>
+                    <CheckBox x:Name="Run" Margin="0" Canvas.Left="160" Canvas.Top="220" />
+                    <Label x:Name="RunData" Content="RunData" Height="25" Margin="0" Canvas.Left="315" Canvas.Top="214" />
 
-                    <Label Content="Moon Jump" Height="26" Canvas.Left="50" Canvas.Top="244"></Label>
-                    <CheckBox x:Name="MoonJump" Margin="0" Canvas.Left="160" Canvas.Top="250" />
-                    <ComboBox x:Name="Controller" Canvas.Left="200" Canvas.Top="246" Width="90" SelectedIndex="0">
-                        <ComboBoxItem Name="Pro" Content="Pro"></ComboBoxItem>
-                        <ComboBoxItem Name="Gamepad" Content="Gamepad"></ComboBoxItem>
+                    <Label Content="Speed" Height="26" Margin="0" Canvas.Left="50" Canvas.Top="244"/>
+                    <CheckBox x:Name="Speed" Margin="0" Canvas.Left="160" Canvas.Top="250"/>
+
+                    <ComboBox x:Name="CbSpeed" Canvas.Left="200" Canvas.Top="247" Width="80" SelectedValuePath="Tag">
+                        <ComboBoxItem Tag="00000000" Content="00000000 - 0x Speed (Frozen)"/>
+                        <ComboBoxItem Tag="3F800000" Content="3F800000 - 1x Speed (Default)"/>
+                        <ComboBoxItem Tag="40000000" Content="40000000 - 2x Speed"/>
+                        <ComboBoxItem Tag="40800000" Content="40800000 - 4x Speed"/>
+                        <ComboBoxItem Tag="41000000" Content="41000000 - 8x Speed"/>
+                        <ComboBoxItem Tag="42000000" Content="42000000 - 32x Speed"/>
                     </ComboBox>
 
-                    <Label Content="Weapon Slots" Height="26" Margin="0" Canvas.Left="50" Canvas.Top="274"></Label>
-                    <CheckBox x:Name="WeaponSlots" Margin="0" Canvas.Left="160" Canvas.Top="280" />
-                    <TextBox x:Name="CurrentWeaponSlots" Height="25" Width="30" Margin="0" Canvas.Left="200" Canvas.Top="275" PreviewTextInput="NumberValidationTextBox"/>
-                    <Label x:Name="WeaponSlotsData" Content="WeaponSlotsData" Height="25" Margin="0" Canvas.Left="315" Canvas.Top="275"/>
+                    <Label x:Name="SpeedData" Content="SpeedData" Height="25" Margin="0" Canvas.Left="315" Canvas.Top="244"/>
 
-                    <Label Content="Bow Slots" Height="26" Margin="0" Canvas.Left="50" Canvas.Top="304"/>
-                    <CheckBox x:Name="BowSlots" Margin="0" Canvas.Left="160" Canvas.Top="310" />
-                    <TextBox x:Name="CurrentBowSlots" Height="25" Width="30" Margin="0" Canvas.Left="200" Canvas.Top="305" PreviewTextInput="NumberValidationTextBox"/>
-                    <Label x:Name="BowSlotsData" Content="BowSlotsData" Height="25" Margin="0" Canvas.Left="315" Canvas.Top="305"/>
+                    <Label Content="Moon Jump" Height="26" Canvas.Left="50" Canvas.Top="274"></Label>
+                    <CheckBox x:Name="MoonJump" Margin="0" Canvas.Left="160" Canvas.Top="280" />
+                    <Label x:Name="MoonJumpData" Content="MoonJumpData" Height="25" Margin="0" Canvas.Left="315" Canvas.Top="274"/>
 
-                    <Label Content="Shield Slots" Height="26" Margin="0" Canvas.Left="50" Canvas.Top="334"/>
-                    <CheckBox x:Name="ShieldSlots" Margin="0" Canvas.Left="160" Canvas.Top="340" />
-                    <TextBox x:Name="CurrentShieldSlots" Height="25" Width="30" Margin="0" Canvas.Left="200" Canvas.Top="335" PreviewTextInput="NumberValidationTextBox"/>
-                    <Label x:Name="ShieldSlotsData" Content="ShieldSlotsData" Height="25" Margin="0" Canvas.Left="315" Canvas.Top="335"/>
+                    <Label Content="Weapon Slots" Height="26" Margin="0" Canvas.Left="50" Canvas.Top="304"></Label>
+                    <CheckBox x:Name="WeaponSlots" Margin="0" Canvas.Left="160" Canvas.Top="310" />
+                    <TextBox x:Name="CurrentWeaponSlots" Height="25" Width="30" Margin="0" Canvas.Left="200" Canvas.Top="305" PreviewTextInput="NumberValidationTextBox"/>
+                    <Label x:Name="WeaponSlotsData" Content="WeaponSlotsData" Height="25" Margin="0" Canvas.Left="315" Canvas.Top="305"/>
+
+                    <Label Content="Bow Slots" Height="26" Margin="0" Canvas.Left="50" Canvas.Top="334"/>
+                    <CheckBox x:Name="BowSlots" Margin="0" Canvas.Left="160" Canvas.Top="340" />
+                    <TextBox x:Name="CurrentBowSlots" Height="25" Width="30" Margin="0" Canvas.Left="200" Canvas.Top="335" PreviewTextInput="NumberValidationTextBox"/>
+                    <Label x:Name="BowSlotsData" Content="BowSlotsData" Height="25" Margin="0" Canvas.Left="315" Canvas.Top="335"/>
+
+                    <Label Content="Shield Slots" Height="26" Margin="0" Canvas.Left="50" Canvas.Top="364"/>
+                    <CheckBox x:Name="ShieldSlots" Margin="0" Canvas.Left="160" Canvas.Top="370" />
+                    <TextBox x:Name="CurrentShieldSlots" Height="25" Width="30" Margin="0" Canvas.Left="200" Canvas.Top="365" PreviewTextInput="NumberValidationTextBox"/>
+                    <Label x:Name="ShieldSlotsData" Content="ShieldSlotsData" Height="25" Margin="0" Canvas.Left="315" Canvas.Top="365"/>
                 </Canvas>
             </TabItem>
 
@@ -102,13 +118,14 @@
 
                     <Button x:Name="Export" Content="Export" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="75" Click="ExportClick" />
 
-                    <DataGrid x:Name="DebugGrid" AutoGenerateColumns="False" Margin="10,10,0,0" ClipboardCopyMode="IncludeHeader" Width="920" Height="450">
+                    <DataGrid x:Name="DebugGrid" AutoGenerateColumns="False" Margin="10,10,0,0" ClipboardCopyMode="IncludeHeader" Width="940" Height="450">
                         <DataGrid.Columns>
-                            <DataGridTextColumn Header="Name" Width="180" Binding="{Binding Name}"/>
-                            <DataGridTextColumn Header="Address" Width="80" Binding="{Binding BaseAddressHex, Mode=OneWay}"/>
-                            <DataGridTextColumn Header="Type" Width="80" Binding="{Binding PageName, Mode=OneWay}"/>
+                            <DataGridTextColumn Header="Id" Width="150" Binding="{Binding Id}"/>
+                            <DataGridTextColumn Header="Name" Width="150" Binding="{Binding Name}"/>
+                            <DataGridTextColumn Header="Address" Width="75" Binding="{Binding BaseAddressHex, Mode=OneWay}"/>
+                            <DataGridTextColumn Header="Type" Width="70" Binding="{Binding PageName, Mode=OneWay}"/>
                             <DataGridTextColumn Header="Value" Width="70" Binding="{Binding Value}"/>
-                            <DataGridCheckBoxColumn Header="Equipped" Width="50" Binding="{Binding EquippedBool, Mode=OneWay}" IsReadOnly="True"/>
+                            <DataGridCheckBoxColumn Header="Equipped" Width="40" Binding="{Binding EquippedBool, Mode=OneWay}" IsReadOnly="True"/>
                             <DataGridTextColumn Header="?" Width="30" Binding="{Binding Unknown}"/>
                             <DataGridTextColumn Header="Modifier1" Width="75" Binding="{Binding Modifier1Value, Mode=OneWay}"/>
                             <DataGridTextColumn Header="Modifier2" Width="75" Binding="{Binding Modifier2Value, Mode=OneWay}"/>
@@ -117,8 +134,6 @@
                             <DataGridTextColumn Header="Modifier5" Width="75" Binding="{Binding Modifier5Value, Mode=OneWay}"/>
                         </DataGrid.Columns>
                     </DataGrid>
-
-
 
                 </WrapPanel>
             </TabItem>
@@ -195,9 +210,9 @@
         </TabControl>
 
         <Canvas Grid.Row="2" Margin="0" Width="970">
-            <Button x:Name="Refresh" Content="Refresh" HorizontalAlignment="Left" Margin="0,0,0,0" VerticalAlignment="Top" Width="75" Click="LoadClick" Canvas.Left="4" Canvas.Top="8" IsEnabled="False" />
+            <Button x:Name="Refresh" Content="Refresh Data" HorizontalAlignment="Left" Margin="0,0,0,0" VerticalAlignment="Top" Width="75" Click="LoadClick" Canvas.Left="4" Canvas.Top="8" IsEnabled="False" />
 
-            <Button x:Name="Save" Content="Save" HorizontalAlignment="Left" Margin="0,0,0,0" VerticalAlignment="Top" Width="75" Click="SaveClick" Canvas.Left="109" Canvas.Top="8" IsEnabled="False" />
+            <Button x:Name="Save" Content="Save Data" HorizontalAlignment="Left" Margin="0,0,0,0" VerticalAlignment="Top" Width="75" Click="SaveClick" Canvas.Left="109" Canvas.Top="8" IsEnabled="False" />
 
             <Label x:Name="Notification" Content="" Canvas.Right="10" Canvas.Top="7" Width="450" HorizontalContentAlignment="Right" Canvas.Left="510"/>
         </Canvas>
