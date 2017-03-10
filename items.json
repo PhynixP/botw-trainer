@@ -2,280 +2,280 @@
   "Items": {
     "Weapons": {
       "Weapon_Sword_001": {
-        "Name": "Traveler's Sword"
+        "Name": "Reiseschwert (5)"
       },
       "Weapon_Sword_002": {
-        "Name": "Soldier's Broadsword"
+        "Name": "Soldatenschwert (14)"
       },
       "Weapon_Sword_003": {
-        "Name": "Knight's Broadsword"
+        "Name": "Ritterschwert (26)"
       },
       "Weapon_Sword_004": {
-        "Name": "Boko Club"
+        "Name": "Bokstock (4)"
       },
       "Weapon_Sword_005": {
-        "Name": "Spiked Boko Club"
+        "Name": "Stachel-Bokstock (12)"
       },
       "Weapon_Sword_006": {
-        "Name": "Dragonbone Boko Club"
+        "Name": "Knochen-Bokstock (24)"
       },
       "Weapon_Sword_007": {
-        "Name": "Lizal Boomerand"
+        "Name": "Echsalbumerang (14)"
       },
       "Weapon_Sword_008": {
-        "Name": "Lizal Forked Boomerang"
+        "Name": "Duo-Echsalbumerang (24)"
       },
       "Weapon_Sword_009": {
-        "Name": "Lizal Tri-Boomerang"
+        "Name": "Trio-Echsalbumerang (36)"
       },
       "Weapon_Sword_013": {
-        "Name": "Guardian Sword"
+        "Name": "Wächter-Schwert (20)"
       },
       "Weapon_Sword_014": {
-        "Name": "Guardian Sword+"
+        "Name": "Wächter-Schwert + (30)"
       },
       "Weapon_Sword_015": {
-        "Name": "Guardian Sword++"
+        "Name": "Wächter-Schwert ++ (40)"
       },
       "Weapon_Sword_016": {
-        "Name": "Lynel Sword"
+        "Name": "Leunenschwert (24)"
       },
       "Weapon_Sword_017": {
-        "Name": "MIghty Lynel Sword"
+        "Name": "Bestienschwert (36)"
       },
       "Weapon_Sword_018": {
-        "Name": "Savage Lynel Sword"
+        "Name": "Chimärenschwert (58)"
       },
       "Weapon_Sword_019": {
-        "Name": "Bokoblin Arm"
+        "Name": "Bokblin-Knochen (5)"
       },
       "Weapon_Sword_020": {
-        "Name": "Lizalfos Arm"
+        "Name": "Echsalfos-Knochen (12)"
       },
       "Weapon_Sword_021": {
-        "Name": "Rusty Broadsword"
+        "Name": "Verrostetes Schwert (6)"
       },
       "Weapon_Sword_022": {
-        "Name": "Soup ladle"
+        "Name": "Holzkelle (4)"
       },
       "Weapon_Sword_023": {
-        "Name": "Ancient Sword"
+        "Name": "Antikes Schwert (40)"
       },
       "Weapon_Sword_024": {
-        "Name": "Royal Broadsword"
+        "Name": "Königsschwert (36)"
       },
       "Weapon_Sword_025": {
-        "Name": "Forest Dweller's Sword"
+        "Name": "Waldschwert (22)"
       },
       "Weapon_Sword_027": {
-        "Name": "Zora Sword"
+        "Name": "Zora-Schwert (15)"
       },
       "Weapon_Sword_029": {
-        "Name": "Gerudo Scimitar"
+        "Name": "Gerudo-Messer (16)"
       },
       "Weapon_Sword_030": {
-        "Name": "Moonlight Scimitar"
+        "Name": "Mondsäbel (25)"
       },
       "Weapon_Sword_031": {
-        "Name": "Feathered Edge"
+        "Name": "Eisvogelschwert (15)"
       },
       "Weapon_Sword_033": {
-        "Name": "Flameblade"
+        "Name": "Feuerschwert (24)"
       },
       "Weapon_Sword_034": {
-        "Name": "Frostblade"
+        "Name": "Eisschwert (20)"
       },
       "Weapon_Sword_035": {
-        "Name": "Thunderblade"
+        "Name": "Elektroschwert (22)"
       },
       "Weapon_Sword_040": {
-        "Name": "Spring-Loaded Hammer"
+        "Name": "Scherzhammer (1)"
       },
       "Weapon_Sword_041": {
-        "Name": "Eightfold Blade"
+        "Name": "Zanshin-Kurzschwert (15)"
       },
       "Weapon_Sword_043": {
-        "Name": "Torch"
+        "Name": "Fackel (2)"
       },
       "Weapon_Sword_044": {
-        "Name": "Tree Branch"
+        "Name": "Rute (2)"
       },
       "Weapon_Sword_047": {
-        "Name": "Royal Guard's Sword"
+        "Name": "Gardeschwert (48)"
       },
       "Weapon_Sword_048": {
-        "Name": "Meteor Rod"
+        "Name": "Meteorstab (10)"
       },
       "Weapon_Sword_049": {
-        "Name": "Blizzard Rod"
+        "Name": "Polarstab (10)"
       },
       "Weapon_Sword_050": {
-        "Name": "Thunderstorm Rod"
+        "Name": "Blitzstab (10)"
       },
       "Weapon_Sword_051": {
-        "Name": "Boomerang"
+        "Name": "Bumerang (8)"
       },
       "Weapon_Sword_052": {
-        "Name": "Scimitar of the Seven"
+        "Name": "Schatzsäbel (32)"
       },
       "Weapon_Sword_053": {
-        "Name": "Vicious Sickle"
+        "Name": "Kopfsammler (16)"
       },
       "Weapon_Sword_056": {
-        "Name": "Master Sword (Broken/Unequippable)"
+        "Name": "Master-Schwert (1) (nicht ausrüstbar)"
       },
       "Weapon_Sword_057": {
-        "Name": "Goddess Sword"
+        "Name": "Weißes Schwert (28)"
       },
       "Weapon_Sword_058": {
-        "Name": "Hero's Sword (8-bit Link)"
+        "Name": "Schwert (22) (8-bit Link)"
       },
       "Weapon_Sword_059": {
-        "Name": "Sea-Breeze Boomerang (Wind Waker)"
+        "Name": "Seewind-Bumerang (20) (Wind Waker)"
       },
       "Weapon_Sword_060": {
-        "Name": "Fire Rod"
+        "Name": "Feuerstab (5)"
       },
       "Weapon_Sword_061": {
-        "Name": "Ice Rod"
+        "Name": "Eisstab (5)"
       },
       "Weapon_Sword_062": {
-        "Name": "Lightning Rod"
+        "Name": "Elektrostab (5)"
       },
       "Weapon_Sword_070": {
-        "Name": "Master Sword"
+        "Name": "Master-Schwert (30/60)"
       },
       "Weapon_Sword_071": {
-        "Name": "Master Sword (no near malice, no charge)"
+        "Name": "Master-Schwert ((0) normal, nicht ausrüstbar)"
       },
       "Weapon_Sword_072": {
-        "Name": "Master Sword (near malice, no charge)"
+        "Name": "Master-Schwert ((0) leuchtet, nicht ausrüstbar)"
       },
       "Weapon_Sword_073": {
-        "Name": "Demon Carver"
+        "Name": "Dämonenring (40)"
       },
       "Weapon_Lsword_001": {
-        "Name": "Traveler's Claymore"
+        "Name": "Reise-Zweihänder (10)"
       },
       "Weapon_Lsword_002": {
-        "Name": "Soldier's Claymore"
+        "Name": "Soldaten-Zweihänder (20)"
       },
       "Weapon_Lsword_003": {
-        "Name": "Knight's Claymore"
+        "Name": "Ritter-Zweihänder (38)"
       },
       "Weapon_Lsword_004": {
-        "Name": "Boko Bat"
+        "Name": "Bokkeule (6)"
       },
       "Weapon_Lsword_005": {
-        "Name": "Spiked Boko Bat"
+        "Name": "Stachel-Bokkeule (18)"
       },
       "Weapon_Lsword_006": {
-        "Name": "Dragonbone Boko Bat"
+        "Name": "Knochen-Bokkeule (36)"
       },
       "Weapon_Lsword_010": {
-        "Name": "Moblin Club"
+        "Name": "Mobkeule (9)"
       },
       "Weapon_Lsword_011": {
-        "Name": "Spiked Moblin Club"
+        "Name": "Stachel-Mobkeule (27)"
       },
       "Weapon_Lsword_012": {
-        "Name": "Dragonbone Moblin Club"
+        "Name": "Knochen-Mobkeule (45)"
       },
       "Weapon_Lsword_013": {
-        "Name": "Ancient Battle Axe"
+        "Name": "Wächter-Axt (30)"
       },
       "Weapon_Lsword_014": {
-        "Name": "Ancient Battle Axe+"
+        "Name": "Wächter-Axt + (45)"
       },
       "Weapon_Lsword_015": {
-        "Name": "Ancient Battle Axe++"
+        "Name": "Wächter-Axt ++ (60)"
       },
       "Weapon_Lsword_016": {
-        "Name": "Lynel Crusher"
+        "Name": "Leunen-Großschwert (36)"
       },
       "Weapon_Lsword_017": {
-        "Name": "Mighty Lynel Crusher"
+        "Name": "Bestien-Großschwert (54)"
       },
       "Weapon_Lsword_018": {
-        "Name": "Savage Lynel Crusher"
+        "Name": "Chimären-Großschwert (78)"
       },
       "Weapon_Lsword_019": {
-        "Name": "Moblin Arm"
+        "Name": "Moblin-Knochen (15)"
       },
       "Weapon_Lsword_020": {
-        "Name": "Rusty Claymore"
+        "Name": "Rostiger Zweihänder (12)"
       },
       "Weapon_Lsword_023": {
-        "Name": "Ancient Bladesaw"
+        "Name": "Antikes Großschwert (55)"
       },
       "Weapon_Lsword_024": {
-        "Name": "Royal Claymore"
+        "Name": "Königs-Zweihänder (52)"
       },
       "Weapon_Lsword_027": {
-        "Name": "Silver Longsword"
+        "Name": "Zora-Großschwert (22)"
       },
       "Weapon_Lsword_029": {
-        "Name": "Golden Claymore"
+        "Name": "Gerudo-Zweihänder (28)"
       },
       "Weapon_Lsword_030": {
-        "Name": "Double Axe"
+        "Name": "Meisteraxt (18)"
       },
       "Weapon_Lsword_031": {
-        "Name": "Iron Sledgehammer"
+        "Name": "Eisenhammer (12)"
       },
       "Weapon_Lsword_032": {
-        "Name": "Woodcutter's Axe"
+        "Name": "Holzfälleraxt (3)"
       },
       "Weapon_Lsword_033": {
-        "Name": "Great Flameblade"
+        "Name": "Feuer-Großschwert (34)"
       },
       "Weapon_Lsword_034": {
-        "Name": "Great Frostblade"
+        "Name": "Eis-Großschwert (30)"
       },
       "Weapon_Lsword_035": {
-        "Name": "Great Thunderblade"
+        "Name": "Elektro-Großschwert (32)"
       },
       "Weapon_Lsword_036": {
-        "Name": "Cobble Crusher"
+        "Name": "Steinspalter (15)"
       },
       "Weapon_Lsword_037": {
-        "Name": "Stone Smasher"
+        "Name": "Felsenspalter (42)"
       },
       "Weapon_Lsword_038": {
-        "Name": "Boat Oar"
+        "Name": "Ruder (14)"
       },
       "Weapon_Lsword_041": {
-        "Name": "Eightfold Longblade"
+        "Name": "Zanshin-Langschwert (32)"
       },
       "Weapon_Lsword_045": {
-        "Name": "Farming Hoe"
+        "Name": "Hacke (16)"
       },
       "Weapon_Lsword_047": {
-        "Name": "Royal Guard's Claymore"
+        "Name": "Garde-Zweihänder (72)"
       },
       "Weapon_Lsword_051": {
-        "Name": "Giant Boomerang"
+        "Name": "Großer Bumerang (25)"
       },
       "Weapon_Lsword_054": {
-        "Name": "Boulder Breaker"
+        "Name": "Bergspalter (60)"
       },
       "Weapon_Lsword_055": {
-        "Name": "Edge of Duality"
+        "Name": "Mushin-Großschwert (50)"
       },
       "Weapon_Lsword_056": {
-        "Name": "Korok Leaf"
+        "Name": "Krog-Fächer (1)"
       },
       "Weapon_Lsword_057": {
-        "Name": "Sword of the Six Sages (Twilight Princess)"
+        "Name": "Schwert der Weisen (48) (Twilight Princess)"
       },
       "Weapon_Lsword_059": {
-        "Name": "Biggoron's Sword (Ocarina of Time)"
+        "Name": "Biggoron-Schwert (50) (Ocarina of Time)"
       },
       "Weapon_Lsword_060": {
-        "Name": "Fierce Deity Sword (Majora's Mask)"
+        "Name": "Grimmige-Gottheit-Klinge (60) (Majora's Mask)"
       },
       "Weapon_Lsword_074": {
-        "Name": "Windcleaver"
+        "Name": "Windklinge (40)"
       },
       "Weapon_Spear_001": {
         "Name": "Traveler's Spear"
