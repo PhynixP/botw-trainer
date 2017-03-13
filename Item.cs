@@ -39,6 +39,14 @@
             }
         }
 
+        public string ValueAddressHex
+        {
+            get
+            {
+                return (this.BaseAddress + 0x8).ToString("x8").ToUpper();
+            }
+        }
+
         public uint Equipped { get; set; }
 
         public bool EquippedBool
@@ -159,21 +167,5 @@
         }
 
         public int Unknown { get; set; }
-
-
-
     }
 }
-
-/*X00000YY
-X = Modifier Level (0 = Level 1, 8 = Level 2)
-YY = Modifier Type
---
-01 = Attack Up
-02 = Durability Up
-04 = Critical Hit
-08 = Long Throw
-10 = Five-Shot Burst
-20 = Zoom x3
-40 = Quick Shot
-80 = Shield Surf Up*/
