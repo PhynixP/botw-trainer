@@ -1,7 +1,7 @@
 ﻿namespace BotwTrainer
 {
     using System;
-    using System.Linq;
+    using System.Windows;
 
     public class Item
     {
@@ -15,7 +15,15 @@
         {
             get
             {
-                return this.NameStart.ToString("x8").ToUpper();
+                try
+                {
+                    return NameStart.ToString("x8").ToUpper();
+                }
+                catch (FormatException formatException)
+                {
+                    MessageBox.Show(formatException.Message);
+                    return string.Empty;
+                }
             }
         }
 
@@ -25,7 +33,15 @@
         {
             get
             {
-                return this.BaseAddress.ToString("x8").ToUpper();
+                try
+                {
+                    return BaseAddress.ToString("x8").ToUpper();
+                }
+                catch (FormatException formatException)
+                {
+                    MessageBox.Show(formatException.Message);
+                    return string.Empty;
+                }
             }
         }
 
@@ -35,7 +51,15 @@
         {
             get
             {
-                return this.Value.ToString("x8").ToUpper();
+                try
+                {
+                    return Value.ToString("x8").ToUpper();
+                }
+                catch (FormatException formatException)
+                {
+                    MessageBox.Show(formatException.Message);
+                    return string.Empty;
+                }
             }
         }
 
@@ -43,28 +67,21 @@
         {
             get
             {
-                return (this.BaseAddress + 0x8).ToString("x8").ToUpper();
-            }
-        }
-
-        public uint Equipped { get; set; }
-
-        public bool EquippedBool
-        {
-            get
-            {
                 try
                 {
-                    var val = BitConverter.GetBytes(this.Equipped).Reverse().First().ToString();
-                    return val != "0";
+                    return (BaseAddress + 0x8).ToString("x8").ToUpper();
                 }
-                catch
+                catch (FormatException formatException)
                 {
-                    return false;
+                    MessageBox.Show(formatException.Message);
+                    return string.Empty;
                 }
-                
             }
         }
+
+        public bool Equipped { get; set; }
+
+        public bool Current { get; set; }
 
         public string Modifier1Value { get; set; }
 
@@ -72,8 +89,16 @@
         {
             get
             {
-                var offset = this.BaseAddress + 0x5c;
-                return offset.ToString("x8").ToUpper();
+                var offset = BaseAddress + 0x5c;
+                try
+                {
+                    return offset.ToString("x8").ToUpper();
+                }
+                catch (FormatException formatException)
+                {
+                    MessageBox.Show(formatException.Message);
+                    return string.Empty;
+                }
             }
         }
 
@@ -83,8 +108,16 @@
         {
             get
             {
-                var offset = this.BaseAddress + 0x60;
-                return offset.ToString("x8").ToUpper();
+                var offset = BaseAddress + 0x60;
+                try
+                {
+                    return offset.ToString("x8").ToUpper();
+                }
+                catch (FormatException formatException)
+                {
+                    MessageBox.Show(formatException.Message);
+                    return string.Empty;
+                }
             }
         }
 
@@ -94,8 +127,16 @@
         {
             get
             {
-                var offset = this.BaseAddress + 0x64;
-                return offset.ToString("x8").ToUpper();
+                var offset = BaseAddress + 0x64;
+                try
+                {
+                    return offset.ToString("x8").ToUpper();
+                }
+                catch (FormatException formatException)
+                {
+                    MessageBox.Show(formatException.Message);
+                    return string.Empty;
+                }
             }
         }
 
@@ -105,8 +146,16 @@
         {
             get
             {
-                var offset = this.BaseAddress + 0x68;
-                return offset.ToString("x8").ToUpper();
+                var offset = BaseAddress + 0x68;
+                try
+                {
+                    return offset.ToString("x8").ToUpper();
+                }
+                catch (FormatException formatException)
+                {
+                    MessageBox.Show(formatException.Message);
+                    return string.Empty;
+                }
             }
         }
 
@@ -116,8 +165,16 @@
         {
             get
             {
-                var offset = this.BaseAddress + 0x6c;
-                return offset.ToString("x8").ToUpper();
+                var offset = BaseAddress + 0x6c;
+                try
+                {
+                    return offset.ToString("x8").ToUpper();
+                }
+                catch (FormatException formatException)
+                {
+                    MessageBox.Show(formatException.Message);
+                    return string.Empty;
+                }
             }
         }
 
@@ -127,8 +184,8 @@
         {
             get
             {
-                var name = string.Empty;
-                switch (this.Page)
+                string name;
+                switch (Page)
                 {
                     case 0:
                         name = "Weapons";
@@ -159,6 +216,9 @@
                         break;
                     case 9:
                         name = "Key Items";
+                        break;
+                    default:
+                        name = "Unknown";
                         break;
                 }
 

@@ -3,96 +3,154 @@
     using System;
     using System.IO;
     using System.Net.Sockets;
+    using System.Security;
+    using System.Threading;
+    using System.Windows;
 
-    class tcpconn
+    public class TcpConn
     {
-        TcpClient client;
-        NetworkStream stream;
+        private TcpClient client;
 
-        public string Host { get; private set; }
-        public int Port { get; private set; }
+        private NetworkStream stream;
 
-        public tcpconn(string host, int port)
+        public TcpConn(string host, int port)
         {
-            this.Host = host;
-            this.Port = port;
-            this.client = null;
-            this.stream = null;
+            Host = host;
+            Port = port;
+            client = null;
+            stream = null;
         }
 
-        public void Connect()
+        private string Host { get; set; }
+
+        private int Port { get; set; }
+
+        public bool Connect()
         {
             try
             {
-                this.Close();
+                Close();
             }
-            catch (Exception) { }
-            this.client = new TcpClient();
-            this.client.NoDelay = true;
-            IAsyncResult ar = this.client.BeginConnect(this.Host, this.Port, null, null);
-            System.Threading.WaitHandle wh = ar.AsyncWaitHandle;
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+
+            client = new TcpClient { NoDelay = true };
+            var waitHandle = new object() as WaitHandle;
+
             try
             {
-                if (!ar.AsyncWaitHandle.WaitOne(TimeSpan.FromSeconds(5), false))
+                var asyncResult = client.BeginConnect(Host, Port, null, null);
+                waitHandle = asyncResult.AsyncWaitHandle;
+                if (!asyncResult.AsyncWaitHandle.WaitOne(TimeSpan.FromSeconds(5), false))
                 {
-                    this.client.Close();
-                    throw new IOException("Connection timoeut.", new TimeoutException());
+                    client.Close();
+                    return false;
                 }
 
-                this.client.EndConnect(ar);
+                client.EndConnect(asyncResult);
+            }
+            catch (ArgumentNullException argumentNullException)
+            {
+                MessageBox.Show(argumentNullException.Message);
+            }
+            catch (SocketException socketException)
+            {
+                MessageBox.Show(socketException.Message);
+            }
+            catch (ObjectDisposedException objectDisposedException)
+            {
+                MessageBox.Show(objectDisposedException.Message);
+            }
+            catch (SecurityException securityException)
+            {
+                MessageBox.Show(securityException.Message);
+            }
+            catch (ArgumentOutOfRangeException argumentOutOfRangeException)
+            {
+                MessageBox.Show(argumentOutOfRangeException.Message);
+            }
+            catch (InvalidOperationException invalidOperationException)
+            {
+                MessageBox.Show(invalidOperationException.Message);
+            }
+            catch (AbandonedMutexException abandonedMutexException)
+            {
+                MessageBox.Show(abandonedMutexException.Message);
+            }
+            catch (ArgumentException argumentException)
+            {
+                MessageBox.Show(argumentException.Message);
+            }
+            catch (OverflowException overflowException)
+            {
+                MessageBox.Show(overflowException.Message);
             }
             finally
             {
-                wh.Close();
-            } 
-            this.stream = this.client.GetStream();
-            this.stream.ReadTimeout = 10000;
-            this.stream.WriteTimeout = 10000;
+                if (waitHandle != null)
+                {
+                    waitHandle.Close();
+                }
+            }
+
+            try
+            {
+                stream = client.GetStream();
+                stream.ReadTimeout = 10000;
+                stream.WriteTimeout = 10000;
+            }
+            catch (InvalidOperationException invalidOperationException)
+            {
+                MessageBox.Show(invalidOperationException.Message);
+            }
+            catch (ArgumentOutOfRangeException argumentOutOfRangeException)
+            {
+                MessageBox.Show(argumentOutOfRangeException.Message);
+            }
+
+            return true;
         }
 
         public void Close()
         {
             try
             {
-                if (this.client == null)
+                if (client != null)
                 {
-                    throw new IOException("Not connected.", new NullReferenceException());
+                    client.Close();
+                    client.Dispose();
                 }
-                this.client.Close();
-
             }
-            catch (Exception) { }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Tcp Close");
+            }
             finally
             {
-                this.client = null;
+                client = null;
             }
         }
 
-        public void Purge()
-        {
-            if (this.stream == null)
-            {
-                throw new IOException("Not connected.", new NullReferenceException());
-            }
-            this.stream.Flush();
-        }
-
-        public void Read(Byte[] buffer, UInt32 nobytes, ref UInt32 bytes_read)
+        /// <exception cref="IOException">Connection closed.</exception>
+        public void Read(byte[] buffer, uint nobytes, ref uint bytesRead)
         {
             try
             {
-                int offset = 0;
-                if (this.stream == null)
+                var offset = 0;
+                if (stream == null)
                 {
                     throw new IOException("Not connected.", new NullReferenceException());
                 }
-                bytes_read = 0;
+
+                bytesRead = 0;
                 while (nobytes > 0)
                 {
-                    int read = this.stream.Read(buffer, offset, (int)nobytes);
+                    var read = stream.Read(buffer, offset, (int)nobytes);
                     if (read >= 0)
                     {
-                        bytes_read += (uint)read;
+                        bytesRead += (uint)read;
                         offset += read;
                         nobytes -= (uint)read;
                     }
@@ -102,26 +160,53 @@
                     }
                 }
             }
+            catch (ArgumentOutOfRangeException argumentOutOfRangeException)
+            {
+                throw new IOException("Connection closed.", argumentOutOfRangeException);
+            }
+            catch (ArgumentNullException argumentNullException)
+            {
+                throw new IOException("Connection closed.", argumentNullException);
+            }
+            catch (IOException ioException)
+            {
+                throw new IOException("Connection closed.", ioException);
+            }
             catch (ObjectDisposedException e)
             {
                 throw new IOException("Connection closed.", e);
             }
         }
 
-        public void Write(Byte[] buffer, Int32 nobytes, ref UInt32 bytes_written)
+        /// <exception cref="IOException">Not connected.</exception>
+        public void Write(byte[] buffer, int nobytes, ref uint bytesWritten)
         {
             try
             {
-                if (this.stream == null)
+                if (stream == null)
                 {
                     throw new IOException("Not connected.", new NullReferenceException());
                 }
-                this.stream.Write(buffer, 0, nobytes);
+
+                stream.Write(buffer, 0, nobytes);
                 if (nobytes >= 0)
-                    bytes_written = (uint)nobytes;
+                {
+                    bytesWritten = (uint)nobytes;
+                }
                 else
-                    bytes_written = 0;
-                this.stream.Flush();
+                {
+                    bytesWritten = 0;
+                }
+
+                stream.Flush();
+            }
+            catch (ArgumentNullException argumentNullException)
+            {
+                throw new IOException("Connection closed.", argumentNullException);
+            }
+            catch (ArgumentOutOfRangeException argumentOutOfRangeException)
+            {
+                throw new IOException("Connection closed.", argumentOutOfRangeException);
             }
             catch (ObjectDisposedException e)
             {
